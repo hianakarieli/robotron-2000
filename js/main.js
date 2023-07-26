@@ -1,5 +1,6 @@
 const controle = document.querySelectorAll("[data-controle]");
 const estatisticas = document.querySelectorAll("[data-estatistica]");
+const cores = ["AZUL", "BRANCO", "PRETO", "ROSA", "VERMELHO", "AMARELO"];
 const pecas = {
     "bracos": {
         "forca": 29,
@@ -34,25 +35,76 @@ const pecas = {
     }
 }
 
-
-controle.forEach( (elemento) => {
+controle.forEach((elemento) => {
     elemento.addEventListener("click", (evento) =>{
-        manipuladorDeDados(evento.target.dataset.controle, evento.target.parentNode);
-        atualizaEstatisticas(evento.target.dataset.peca);
+        if (evento.target.dataset.peca != "cor") {
+            manipuladorDeDados(evento.target.dataset.controle, evento.target.parentNode);
+            atualizaEstatisticas(evento.target.dataset.peca, evento.target.dataset.controle,);
+        } else {
+            const operacao = evento.target.dataset.controle;
+            const corAtual = evento.target.parentNode.querySelector("[data-nome-cor]").value;
+            const indexAtual = cores.indexOf(corAtual);
+            
+            alterarCor(operacao, corAtual, indexAtual);
+        }
     })
 })
 
 function manipuladorDeDados(operacao, controle){
     const peca = controle.querySelector("[data-contador]");
 
-    if(operacao === "-") {
+    if (operacao === "-") {
         peca.value = parseInt(peca.value) -1;
     } else {
         peca.value = parseInt(peca.value) +1;
     }
 } 
+
 function atualizaEstatisticas(peca){
-     estatisticas.forEach( (elemento) =>{
-        elemento.textContent = parseInt(elemento.textContent) + pecas[peca] [elemento.dataset.estatistica]
+     estatisticas.forEach( (elemento) => {
+        elemento.textContent = parseInt(elemento.textContent) + pecas[peca][elemento.dataset.estatistica];
     })
+}
+
+function alterarCor(operacao, corAtual, indexCorAtual) {
+    const listSize = cores.length-1;
+
+    mudarDirecaoDireita(operacao, indexCorAtual, corAtual, listSize);
+    mudarDirecaoEsquerda(operacao, indexCorAtual, corAtual, listSize);
+}
+
+mudarDirecaoDireita = (direcao, index, cor, listSize) => {
+    if (direcao === ">") {
+        if (index >= listSize) {
+            index = 0;
+            cor = cores[index]
+            alterarImagem(cor);
+            return;
+        }
+
+        index += 1;
+        cor = cores[index];
+        alterarImagem(cor);
+    }
+}
+
+mudarDirecaoEsquerda = (direcao, index, cor, listSize) => {
+    if (direcao === "<") {
+        if (index == 0) {
+            index = listSize;
+            cor = cores[index]
+            alterarImagem(cor);
+            return;
+        }
+
+        index -= 1;
+        cor = cores[index];
+        alterarImagem(cor);
+    }
+}
+
+alterarImagem = (corAtual) => {
+    var imagem = `img/Robotron 2000 - ${corAtual}.png`;
+    document.getElementById("robotron").setAttribute('src', imagem);
+    document.getElementById("nome-cor").setAttribute("value", corAtual);
 }
