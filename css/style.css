@@ -41,7 +41,7 @@ main {
     height: 110%;
     z-index: 1;
     position: absolute;
-    left: -20%;
+    left: -5%;
     top: -5%;
 }
 
@@ -62,7 +62,7 @@ main {
     background: rgba(0,0,0,0.6);
     clip-path: polygon(calc(100% - 30px) 0, 100% 30px, 100% calc(100% - 30px), calc(100% - 30px) 100%, 30px 100%, 0 calc(100% - 30px), 0 30px, 30px 0);
     border-left: 5px solid var(--main-cinza);
-    height: 80%;
+    height: 100%;
 }
 
 /****************************** Equipamentos *****/
@@ -113,6 +113,20 @@ main {
     padding-top: 8px;
 }
 
+.controle-contador-cor {
+    width: 100px;
+    height: 35px;
+    background: none;
+    border: 0;
+    margin: 0 1rem;
+    color: var(--main-branco);
+    text-align: center;
+    font-size: 2.0em;
+    display: inline-flex;
+    align-items: center;
+    padding-top: 8px;
+}
+
 .controle-ajuste {
     display: inline-block;
     width: 40px;
@@ -125,6 +139,11 @@ main {
     text-align: center;
     border: 3px solid var(--main-cinza);
     cursor: pointer;
+}
+
+.controle-ajuste:hover {
+    background: var(--main-branco);
+    color: var(--main-preto)
 }
 
 .linha {
@@ -148,8 +167,6 @@ main {
     color: var(--main-branco)
 }
 
-
-
 /****************************** Estatísticas *****/
 .estatisticas {
     flex-basis: 23%;
@@ -164,7 +181,7 @@ main {
 }
 
 .estatistica-titulo {
-    font-size: 1.5em;
+    font-size: 2em;
     border-bottom: 1px solid var(--main-cinza);
     flex-basis: 40%;
     text-transform: uppercase;
